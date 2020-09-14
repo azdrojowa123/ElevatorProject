@@ -48,7 +48,7 @@ public class Map {
             Map.space[p.floor].queue.add(p);
         }
     }
-    public synchronized static void add_passenger_0(Elevator e) {
+    public static void add_passenger_0(Elevator e) {
 
         if(Map.space[0].queue != null) {
 
@@ -82,7 +82,7 @@ public class Map {
 
                         }}}}}}
 
-    public synchronized static void add_passenger_2(Elevator e) {
+    public static void add_passenger_2(Elevator e) {
 
         if(Map.space[2].queue.isEmpty()==false) {
             for(int i=0;i<Map.space[2].queue.size();i++) {

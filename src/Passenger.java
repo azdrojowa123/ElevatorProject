@@ -76,7 +76,7 @@ public class Passenger extends Thread {
                 }
             }
             this.place='k';
-            System.out.println("Pasa�er numer"+this.id+"przemie�ci�  sie na kolejke nr"+this.number);
+            System.out.println("Pasazer numer"+this.id+"przemiescil sie na kolejke nr"+this.number);
 
         }
 

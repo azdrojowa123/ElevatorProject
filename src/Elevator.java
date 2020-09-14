@@ -87,15 +87,19 @@ public class Elevator extends Thread {
 
         if(licznik==2) {
 
+            synchronized (Mainn.e1){
+
+            }
             ArrayList<Passenger>pomocna=this.stages[2];
             for(int i=0;i<pomocna.size();i++)
             {
-                pomocna.get(i).floor=2;
-
-                Map.movetospacerowniamap_2(pomocna.get(i), this,i);
+                    pomocna.get(i).floor=2;
+                    Map.movetospacerowniamap_2(pomocna.get(i), this,i);
 
             }
-            System.out.println("Winda numer "+this.id+" wypakowa�a ludzi na spacerownik parteru");
+
+
+            System.out.println("Winda numer "+this.id+" wypakowala ludzi na spacerownik parteru");
             if(this.stages[2].isEmpty()==true) {
                 this.stages[2]=null;
                 this.stages[2]=new ArrayList<Passenger>();
@@ -140,6 +144,9 @@ public class Elevator extends Thread {
         if(licznik==2)
         {
             ArrayList<Passenger>pomocna=this.stages[0];
+
+
+
 
             for(int i=0;i<pomocna.size();i++)
             {
