@@ -12,8 +12,6 @@ public class Elevator extends Thread {
     int licznik=0;
     int waiting=0;
 
-
-
     public Elevator(ArrayList<Passenger>[] stages, int pietro, int id, boolean direction, int[]pietro_id) {
         this.stages=stages;
         this.aktualne_pietro=pietro;
@@ -46,7 +44,7 @@ public class Elevator extends Thread {
                             sleep(2000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
-                            
+
                         }
 
                     }
@@ -88,7 +86,7 @@ public class Elevator extends Thread {
     }
 
 
-    public synchronized void move_start_2() throws InterruptedException {
+    public void move_start_2() throws InterruptedException {
 
         if(licznik==2) {
             ArrayList<Passenger>pomocna=this.stages[2];
@@ -133,7 +131,7 @@ public class Elevator extends Thread {
 
     }
 
-    public synchronized void move_start_0() throws InterruptedException {
+    public void move_start_0() throws InterruptedException {
 
         if(licznik==2)
         {

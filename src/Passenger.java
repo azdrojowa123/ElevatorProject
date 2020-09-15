@@ -27,7 +27,6 @@ public class Passenger extends Thread {
 
         while (!Thread.currentThread().isInterrupted()) {
             synchronized (m) {
-
                 synchronized (this) {
                     try {
                         work();
@@ -44,7 +43,7 @@ public class Passenger extends Thread {
         }
     }
 
-    public synchronized void work() throws InterruptedException {
+    public void work() throws InterruptedException {
 
         if(place=='s') {
             movetoqueue();
@@ -68,7 +67,6 @@ public class Passenger extends Thread {
                     Map.space[this.floor].queue_list[i]=this.id;
                     this.number=i;
                     GUI.update();
-                    //i=10;
                     break;
 
                 }
@@ -83,7 +81,7 @@ public class Passenger extends Thread {
 
     }
 
-    public synchronized void movetospacerownia(Passenger p,Elevator e) throws InterruptedException{
+    public void movetospacerownia(Passenger p,Elevator e) throws InterruptedException{
 
         for(int i=0;i<5;i++) {
             if(Map.space[p.floor].walking_area_list[i]==0) {
@@ -102,8 +100,7 @@ public class Passenger extends Thread {
                     GUI.update();
                     GUI.updateelevator_2(e);
                 }
-                p.work();
-                i=10;
+                break;
             }
         }
     }
