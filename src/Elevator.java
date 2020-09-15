@@ -26,6 +26,7 @@ public class Elevator extends Thread {
         while(!Thread.currentThread().isInterrupted()) {
             synchronized (Map.class) {
                 synchronized (this) {
+
                     if (id == 1) {
                         try {
                             work();
@@ -34,10 +35,10 @@ public class Elevator extends Thread {
                             sleep(2000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
+                            Thread.currentThread().interrupt();
                         }
 
                     } else if (this.id == 2) {
-
                         try {
                             work();
                             GUI.update();
@@ -45,6 +46,7 @@ public class Elevator extends Thread {
                             sleep(2000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
+                            Thread.currentThread().interrupt();
                         }
 
                     }
@@ -52,8 +54,8 @@ public class Elevator extends Thread {
                 }
             }
         }
+    }
 
-        }
 
 
     public void work() throws InterruptedException
@@ -83,9 +85,6 @@ public class Elevator extends Thread {
             System.out.println("Elevator's number "+this.id+" on level 0");
 
         }
-
-
-
     }
 
 
@@ -128,19 +127,13 @@ public class Elevator extends Thread {
             this.licznik++;
             this.stages[1]=this.stages[2];
             this.stages[2]=new ArrayList<Passenger>();
-
             this.waiting=0;
             System.out.println("Elevator's  number: "+this.id+" go on level 1");
         }
 
     }
 
-
-
-
-
     public synchronized void move_start_0() throws InterruptedException {
-
 
         if(licznik==2)
         {
@@ -160,8 +153,6 @@ public class Elevator extends Thread {
                 this.waiting=0;
             }
 
-
-
         }
         else if( this.if_fully(this)==false && this.waiting<3) {
             Map.add_passenger_0(this);
@@ -173,7 +164,6 @@ public class Elevator extends Thread {
             this.stages[1]=this.stages[0];
             this.stages[0]=new ArrayList<Passenger>();
             this.waiting=0;
-
             System.out.println("Elevator's  number: "+this.id+" go to level 1");
         }
         else if(this.if_fully(this)==true && this.licznik<2) {
@@ -182,7 +172,6 @@ public class Elevator extends Thread {
             this.stages[1]=this.stages[0];
             this.stages[0]=new ArrayList<Passenger>();
             this.waiting=0;
-
             System.out.println("Elevator's  number: "+this.id+" go to level 1");
         }
 
