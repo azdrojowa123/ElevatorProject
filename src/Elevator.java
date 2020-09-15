@@ -35,7 +35,7 @@ public class Elevator extends Thread {
                             sleep(2000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
-                            Thread.currentThread().interrupt();
+
                         }
 
                     } else if (this.id == 2) {
@@ -46,7 +46,7 @@ public class Elevator extends Thread {
                             sleep(2000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
-                            Thread.currentThread().interrupt();
+                            
                         }
 
                     }
