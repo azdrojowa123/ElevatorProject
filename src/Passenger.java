@@ -24,31 +24,27 @@ public class Passenger extends Thread {
 
     }
     public void run() {
-        while(!Thread.currentThread().isInterrupted()) {
-            try {
-                synchronized(m) {
-                    synchronized(this)
-                    {
+
+        while (!Thread.currentThread().isInterrupted()) {
+            synchronized (m) {
+
+                synchronized (this) {
+                    try {
                         work();
                         GUI.update();
                         GUI.updateelevator(Map.e);
                         GUI.updateelevator_2(Map.e2);
-                        sleep(5000);
+                        sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
 
-
-
-
-                }}
-            catch(InterruptedException ex) {
-                Thread.currentThread().interrupt();
+                }
             }
         }
-
-
-
     }
-    public void work() throws InterruptedException {
+
+    public synchronized void work() throws InterruptedException {
 
         if(place=='s') {
             movetoqueue();
@@ -69,14 +65,17 @@ public class Passenger extends Thread {
 
                 if(Map.space[this.floor].queue_list[i]==0)
                 {
-
                     Map.space[this.floor].queue_list[i]=this.id;
                     this.number=i;
-                    i=10;
+                    GUI.update();
+                    //i=10;
+                    break;
+
                 }
             }
             this.place='k';
-            System.out.println("Pasazer numer"+this.id+"przemiescil sie na kolejke nr"+this.number);
+
+            System.out.println("Passenger number "+this.id+" go to queue");
 
         }
 
@@ -86,15 +85,14 @@ public class Passenger extends Thread {
 
     public synchronized void movetospacerownia(Passenger p,Elevator e) throws InterruptedException{
 
-        System.out.println("TttUU");
         for(int i=0;i<5;i++) {
             if(Map.space[p.floor].walking_area_list[i]==0) {
-                System.out.println("TttUU");
                 Map.space[p.floor].walking_area_list[i]=this.getid();
                 Map.space[p.floor].walking_area.add(p);
                 p.place='s';
                 p.number=i;
-                System.out.println("Pasa�er numer"+this.id+" przemie�ci� si� sie na spacerownie nr "+i+"na pietrze "+floor);
+
+                System.out.println("Passenger number "+this.id+" go to walker on floor "+floor);
                 if(e.id==1) {
                     GUI.update();
                     GUI.updateelevator(e);
@@ -104,6 +102,7 @@ public class Passenger extends Thread {
                     GUI.update();
                     GUI.updateelevator_2(e);
                 }
+                p.work();
                 i=10;
             }
         }

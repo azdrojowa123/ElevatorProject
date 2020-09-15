@@ -64,7 +64,8 @@ public class Mainn  {
         p8.start();
         p9.start();
         p10.start();
-        e1.start();e2.start();
+        e1.start();
+        e2.start();
         GUI.update();
         GUI.updateelevator(Map.e);
         GUI.updateelevator_2(Map.e2);

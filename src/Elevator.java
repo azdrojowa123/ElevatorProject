@@ -24,32 +24,38 @@ public class Elevator extends Thread {
     }
     public void run() {
         while(!Thread.currentThread().isInterrupted()) {
-            try {
-                synchronized(this.stages) {
-                    synchronized(Map.class) {
+            synchronized (Map.class) {
+                synchronized (this) {
+                    if (id == 1) {
+                        try {
+                            work();
+                            GUI.updateelevator(this);
+                            GUI.update();
+                            sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
 
-                        synchronized(this) {
+                    } else if (this.id == 2) {
 
+                        try {
+                            work();
+                            GUI.update();
+                            GUI.updateelevator_2(this);
+                            sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
 
-                            if(id==1) {
-                                work();
-                                GUI.updateelevator(this);
-                                GUI.update();
-                                sleep(2000);
-                            }
-                            else if(this.id==2)  {
+                    }
 
-                                work();
-                                GUI.update();
-                                GUI.updateelevator_2(this);
-                                sleep(2000);
-                            }
-
-                        }}}}
-            catch(InterruptedException ex) {
-                Thread.currentThread().interrupt();
+                }
             }
-        }}
+        }
+
+        }
+
+
     public void work() throws InterruptedException
     {
         if(this.aktualne_pietro==0) {
@@ -65,7 +71,7 @@ public class Elevator extends Thread {
             this.stages[2]=this.stages[1];
             this.stages[1]=null;
             this.waiting=0;
-            System.out.println("Winda numer"+this.id+" na poziomie 2");
+            System.out.println("Elevator's number"+this.id+" on level 2");
 
         }
         else if (this.aktualne_pietro==1 && direction ==false) {
@@ -74,7 +80,7 @@ public class Elevator extends Thread {
             this.stages[0]=this.stages[1];
             stages[1]=null;
             this.waiting=0;
-            System.out.println("Winda numer"+this.id+" na poziomie 0");
+            System.out.println("Elevator's number "+this.id+" on level 0");
 
         }
 
@@ -86,20 +92,15 @@ public class Elevator extends Thread {
     public synchronized void move_start_2() throws InterruptedException {
 
         if(licznik==2) {
-
-            synchronized (Mainn.e1){
-
-            }
             ArrayList<Passenger>pomocna=this.stages[2];
             for(int i=0;i<pomocna.size();i++)
             {
-                    pomocna.get(i).floor=2;
-                    Map.movetospacerowniamap_2(pomocna.get(i), this,i);
+                pomocna.get(i).floor=2;
+                Map.movetospacerowniamap_2(pomocna.get(i), this,i);
 
             }
 
-
-            System.out.println("Winda numer "+this.id+" wypakowala ludzi na spacerownik parteru");
+            System.out.println("Elevator's  number:  "+this.id+" unpacked people on ground floor walker");
             if(this.stages[2].isEmpty()==true) {
                 this.stages[2]=null;
                 this.stages[2]=new ArrayList<Passenger>();
@@ -119,7 +120,7 @@ public class Elevator extends Thread {
             this.stages[1]=this.stages[2];
             this.stages[2]=new ArrayList<Passenger>();
             this.waiting=0;
-            System.out.println("winda numer"+this.id+" pojechala na poziom 1");
+            System.out.println("Elevator's  number: "+this.id+" go on level 1");
         }
 
         else if(this.if_fully(this)==true && this.licznik<2) {
@@ -129,7 +130,7 @@ public class Elevator extends Thread {
             this.stages[2]=new ArrayList<Passenger>();
 
             this.waiting=0;
-            System.out.println("winda numer"+this.id+" pojechala na poziom 1");
+            System.out.println("Elevator's  number: "+this.id+" go on level 1");
         }
 
     }
@@ -144,10 +145,6 @@ public class Elevator extends Thread {
         if(licznik==2)
         {
             ArrayList<Passenger>pomocna=this.stages[0];
-
-
-
-
             for(int i=0;i<pomocna.size();i++)
             {
                 pomocna.get(i).floor=0;
@@ -155,7 +152,7 @@ public class Elevator extends Thread {
 
             }
             if(this.stages[0].isEmpty()==true) {
-                System.out.println("Winda numer "+this.id+" wypakowa�a ludzi na spacerownik parteru");
+                System.out.println("Elevator's  number: "+this.id+" unpacked people on ground floor walker");
                 this.stages[0]=null;
                 this.stages[0]=new ArrayList<Passenger>();
                 this.direction=true;
@@ -177,7 +174,7 @@ public class Elevator extends Thread {
             this.stages[0]=new ArrayList<Passenger>();
             this.waiting=0;
 
-            System.out.println("winda numer"+this.id+" pojechala na poziom 1");
+            System.out.println("Elevator's  number: "+this.id+" go to level 1");
         }
         else if(this.if_fully(this)==true && this.licznik<2) {
             this.aktualne_pietro=1;
@@ -186,7 +183,7 @@ public class Elevator extends Thread {
             this.stages[0]=new ArrayList<Passenger>();
             this.waiting=0;
 
-            System.out.println("winda numer"+this.id+" pojechala na poziom 1");
+            System.out.println("Elevator's  number: "+this.id+" go to level 1");
         }
 
     }

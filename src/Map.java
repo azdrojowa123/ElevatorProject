@@ -38,7 +38,6 @@ public class Map {
 
     public void add_passenger(Passenger p) {
 
-
         if(p.place=='s') {
             Map.space[p.floor].walking_area_list[p.number]=p.getid();
             Map.space[p.floor].walking_area.add(p);
@@ -53,22 +52,19 @@ public class Map {
         if(Map.space[0].queue != null) {
 
             if(Map.space[0].queue.isEmpty()==false) {
-
-                System.out.println("TU");
                 for(int i=0;i<Map.space[0].queue.size();i++) {
-                    System.out.println("Jest do wpakowania na poziomie 0 ludzi: "+Map.space[0].queue.size());
+                    System.out.println("On level 0 is : "+Map.space[0].queue.size()+" people to pack");
                     if(Map.space[0].queue.get(i)!=null) {
                         for(int j=0;j<4;j++) {
                             if(e.pietro_id[j]==0)
                             {
-
                                 e.pietro_id[j]=Map.space[0].queue.get(i).getid();
                                 e.stages[0].add(Map.space[0].queue.get(i));
                                 Map.space[0].queue_list[Map.space[0].queue.get(i).number]=0;
                                 Map.space[0].queue.get(i).number=j;
                                 Map.space[0].queue.remove(i);
                                 GUI.update();
-                                j=10;
+                                break;
                             }
                             if(e.id==1) {
                                 GUI.updateelevator(Map.e);
@@ -77,10 +73,12 @@ public class Map {
                             {
                                 GUI.updateelevator_2(Map.e2);
                             }
-
-
-
-                        }}}}}}
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     public static void add_passenger_2(Elevator e) {
 
@@ -91,12 +89,10 @@ public class Map {
                         if(e.pietro_id[j]==0)
                         {
                             e.pietro_id[j]=Map.space[2].queue.get(i).getid();
-
                             e.stages[2].add(Map.space[2].queue.get(i));
                             Map.space[2].queue_list[Map.space[2].queue.get(i).number]=0;
                             Map.space[2].queue.get(i).number=j;
                             Map.space[2].queue.remove(i);
-
                             GUI.update();
                             if(e.id==1) {
                                 GUI.updateelevator(Map.e);
@@ -106,26 +102,26 @@ public class Map {
                                 GUI.updateelevator_2(Map.e2);
 
                             }
-                            j=10;
+                            break;
                         }
-
-
-
-
-                    }}}}}
+                    }
+                }
+            }
+        }
+    }
 
     public static void movetospacerowniamap_0(Passenger p,Elevator e,int l) {
-        System.out.println("TttUU");
+
         for(int i=0;i<5;i++) {
             if(Map.space[p.floor].walking_area_list[i]==0) {
-                System.out.println("TttUU");
+
                 Map.space[p.floor].walking_area_list[i]=p.getid();
                 Map.space[p.floor].walking_area.add(p);
                 e.pietro_id[p.number]=0;
                 p.place='s';
                 p.number=i;
                 e.stages[0].remove(l);
-                System.out.println("Pasa�er numer"+p.id+" przemie�ci� si� sie na spacerownie nr "+i+"na pietrze "+p.floor);
+                System.out.println("Passenger's number: "+p.id+" go to walker on floor "+p.floor);
                 if(e.id==1) {
                     GUI.update();
                     GUI.updateelevator(e);
@@ -135,23 +131,21 @@ public class Map {
                     GUI.update();
                     GUI.updateelevator_2(e);
                 }
-                i=10;
+                break;
 
             }
         }}
 
     public static void movetospacerowniamap_2(Passenger p,Elevator e,int l) {
-        System.out.println("TttUU");
         for(int i=0;i<5;i++) {
             if(Map.space[p.floor].walking_area_list[i]==0) {
-                System.out.println("TttUU");
                 Map.space[p.floor].walking_area_list[i]=p.getid();
                 Map.space[p.floor].walking_area.add(p);
                 e.pietro_id[p.number]=0;
                 p.place='s';
                 p.number=i;
                 e.stages[2].remove(l);
-                System.out.println("Pasa�er numer"+p.id+" przemie�ci� si� sie na spacerownie nr "+i+"na pietrze "+p.floor);
+                System.out.println("Passenger's number: "+p.id+" go to walker on floor "+p.floor);
                 if(e.id==1) {
                     GUI.update();
                     GUI.updateelevator(e);
@@ -161,7 +155,7 @@ public class Map {
                     GUI.update();
                     GUI.updateelevator_2(e);
                 }
-                i=10;
+                break;
 
             }
         }}
